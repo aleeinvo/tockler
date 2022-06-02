@@ -10,6 +10,7 @@ import { extensionsManager } from './extensions-manager';
 import AppUpdater from './app-updater';
 import config from './config';
 import { Deeplink } from 'electron-deeplink';
+import { screenshotService } from './services/screenshot-service';
 
 const UrlParse = require('url-parse');
 
@@ -91,6 +92,8 @@ if (gotTheLock || isMas) {
                     (e) => logger.error('Error in onResume', e),
                 );
             });
+
+            setInterval(screenshotService.captureScreen, 30000);
         } catch (error) {
             logger.error(`App errored in ready event: ${error.toString()}`, error);
         }
